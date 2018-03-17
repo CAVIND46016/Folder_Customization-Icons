@@ -3,8 +3,10 @@ Input to the python script would be the directory name. The script will search f
 (size = 256*256) for the folder at https://images.google.com/ considering the folder name as the search 
 string.
 
-It will download 'n' images (n <= 100) and select one at random to convert into an .ico file.
-Value of 'n' is parameterized.
+It will download 'n' images (n <= 100) and select one at random to convert into an .ico file. <br>
+Value of 'n' is parameterized. <br>
+(Note: Higher 'n' will result in more time for execution and icons may or may not be appropriate for its folder,
+which is pretty much the same phenomenon observed when manually searching images on google.)
 
 The selected image is converted to .ico format and saved in the appropriate subdirectory and applied
 as its icon.
