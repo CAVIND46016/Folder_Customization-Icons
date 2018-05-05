@@ -25,3 +25,6 @@ The python script then applies the respective icons to its folders.
 ### After:
 ![alt text](https://github.com/CAVIND46016/Bulk-Icon-Apply/blob/master/data/after.png)
 
+
+##### Also, on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:6372596933311156224).
+
