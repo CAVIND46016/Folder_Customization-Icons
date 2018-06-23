@@ -28,12 +28,12 @@ The python script then applies the respective icons to its folders.
 You can easily make a Windows Application (.exe) file using the  steps as shown on the website: <br>
 https://mborgerson.com/creating-an-executable-from-a-python-script/
 
-`pyinstaller.exe --onefile --windowed app.py`
+`pyinstaller.exe --onefile --windowed app.py` <br>
 `pyinstaller.exe --onefile --windowed --icon=app.ico app.py`
 
 <br>
-`--onefile` is used to package everything into a single executable. If you do not specify this option, the libraries, etc. will be distributed as separate files alongside the main executable.
-`--windowed` prevents a console window from being displayed when the application is run. If you're releasing a non-graphical application (i.e. a console application), you do not need to use this option.
+`--onefile` is used to package everything into a single executable. If you do not specify this option, the libraries, etc. will be distributed as separate files alongside the main executable. <br>
+`--windowed` prevents a console window from being displayed when the application is run. If you're releasing a non-graphical application (i.e. a console application), you do not need to use this option. <br>
 `app.py` the main source file of the application. The basename of this script will be used to name of the executable, however you may specify an alternative executable name using the --name option.
 <br>
 
