@@ -48,10 +48,7 @@ class CreateGUI:
                     set_icon(os.path.join(root, name), subdir_icon, 0)
                     cnt += 1
 
-        messagebox.showinfo(
-            "Success",
-            f"Icons applied successfully to {cnt} folders."
-        )
+        messagebox.showinfo("Success", f"Icons applied successfully to {cnt} folders.")
 
     def get_directory(self):
         """
@@ -89,18 +86,10 @@ class CreateGUI:
         """
 
         self.root_obj.title("Icon apply - advanced")
-        self.root_obj.geometry('{}x{}'.format(250, 60))
-        label = ttk.Label(
-            self.root_obj,
-            text="Search and apply icons",
-            font=("Arial", 10)
-        )
+        self.root_obj.geometry("{}x{}".format(250, 60))
+        label = ttk.Label(self.root_obj, text="Search and apply icons", font=("Arial", 10))
         label.pack()
-        button = ttk.Button(
-            self.root_obj,
-            text='Select directory',
-            command=self.get_directory
-        )
+        button = ttk.Button(self.root_obj, text="Select directory", command=self.get_directory)
         button.pack()
 
 
