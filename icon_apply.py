@@ -27,11 +27,7 @@ class GUID(Structure):
     See https://docs.python.org/3/library/ctypes.html#structures-and-unions
     """
 
-    _fields_ = [
-        ('Data1', DWORD),
-        ('Data2', WORD),
-        ('Data3', WORD),
-        ('Data4', BYTE * 8)]
+    _fields_ = [("Data1", DWORD), ("Data2", WORD), ("Data3", WORD), ("Data4", BYTE * 8)]
 
 
 class SHFolderCustomSettings(Structure):
@@ -40,21 +36,22 @@ class SHFolderCustomSettings(Structure):
     """
 
     _fields_ = [
-        ('dw_size', DWORD),
-        ('dw_mask', DWORD),
-        ('pvid', POINTER(GUID)),
-        ('pszWebViewTemplate', LPTSTR),
-        ('cchWebViewTemplate', DWORD),
-        ('pszWebViewTemplateVersion', LPTSTR),
-        ('pszInfoTip', LPTSTR),
-        ('cchInfoTip', DWORD),
-        ('pclsid', POINTER(GUID)),
-        ('dwFlags', DWORD),
-        ('psz_icon_file', LPTSTR),
-        ('cch_icon_file', DWORD),
-        ('i_icon_index', c_int),
-        ('pszLogo', LPTSTR),
-        ('cchLogo', DWORD)]
+        ("dw_size", DWORD),
+        ("dw_mask", DWORD),
+        ("pvid", POINTER(GUID)),
+        ("pszWebViewTemplate", LPTSTR),
+        ("cchWebViewTemplate", DWORD),
+        ("pszWebViewTemplateVersion", LPTSTR),
+        ("pszInfoTip", LPTSTR),
+        ("cchInfoTip", DWORD),
+        ("pclsid", POINTER(GUID)),
+        ("dwFlags", DWORD),
+        ("psz_icon_file", LPTSTR),
+        ("cch_icon_file", DWORD),
+        ("i_icon_index", c_int),
+        ("pszLogo", LPTSTR),
+        ("cchLogo", DWORD),
+    ]
 
 
 class SHFileInfo(Structure):
@@ -63,11 +60,12 @@ class SHFileInfo(Structure):
     """
 
     _fields_ = [
-        ('hIcon', HICON),
-        ('iIcon', c_int),
-        ('dwAttributes', DWORD),
-        ('szDisplayName', TCHAR * MAX_PATH),
-        ('szTypeName', TCHAR * 80)]
+        ("hIcon", HICON),
+        ("iIcon", c_int),
+        ("dwAttributes", DWORD),
+        ("szDisplayName", TCHAR * MAX_PATH),
+        ("szTypeName", TCHAR * 80),
+    ]
 
 
 def set_icon(folder_path, icon_path, icon_index):
@@ -91,36 +89,17 @@ def set_icon(folder_path, icon_path, icon_index):
     fcs.cch_icon_file = 0
     fcs.i_icon_index = icon_index
 
-    gs_fcs = shell32.SHGetSetFolderCustomSettings(
-        byref(fcs),
-        folder_path,
-        FCS_FORCE_WRITE
-    )
+    gs_fcs = shell32.SHGetSetFolderCustomSettings(byref(fcs), folder_path, FCS_FORCE_WRITE)
     if gs_fcs:
         raise WindowsError(win32api.FormatMessage(gs_fcs))
 
     sfi = SHFileInfo()
-    gs_fcs = shell32.SHGetFileInfoW(
-        folder_path,
-        0,
-        byref(sfi),
-        sizeof(sfi),
-        SHGFI_ICON_LOCATION
-    )
+    gs_fcs = shell32.SHGetFileInfoW(folder_path, 0, byref(sfi), sizeof(sfi), SHGFI_ICON_LOCATION)
     if gs_fcs == 0:
         raise WindowsError(win32api.FormatMessage(gs_fcs))
 
-    index = shell32.Shell_GetCachedImageIndexW(
-        sfi.szDisplayName,
-        sfi.iIcon,
-        0
-    )
+    index = shell32.Shell_GetCachedImageIndexW(sfi.szDisplayName, sfi.iIcon, 0)
     if index == -1:
         raise WindowsError()
 
-    shell32.SHUpdateImageW(
-        sfi.szDisplayName,
-        sfi.iIcon,
-        0,
-        index
-    )
+    shell32.SHUpdateImageW(sfi.szDisplayName, sfi.iIcon, 0, index)
