@@ -14,11 +14,11 @@ from PIL import Image
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                  "(KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36",
+    "(KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,"
-              "image/apng,*/*;q=0.8",
+    "image/apng,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
-    "Connection": "keep-alive"
+    "Connection": "keep-alive",
 }
 
 IMAGE_DOWNLOAD_LIMIT = 10
@@ -33,8 +33,11 @@ def find_and_convert(root, search_text):
     """
 
     query_str = "+".join(search_text.split())
-    url = "https://www.google.co.in/search?q=" + query_str + \
-          "&source=lnt&tbm=isch&tbs=isz:ex,iszw:256,iszh:256"
+    url = (
+        "https://www.google.co.in/search?q="
+        + query_str
+        + "&source=lnt&tbm=isch&tbs=isz:ex,iszw:256,iszh:256"
+    )
     req = urllib2.Request(url, headers=HEADERS)
     soup = BeautifulSoup(urllib2.urlopen(req, timeout=200).read(), "html.parser")
 
@@ -47,11 +50,11 @@ def find_and_convert(root, search_text):
                 ("User-Agent", HEADERS["User-Agent"]),
                 ("Accept", HEADERS["Accept"]),
                 ("Accept-Language", HEADERS["Accept-Language"]),
-                ("Connection", HEADERS["Connection"])
+                ("Connection", HEADERS["Connection"]),
             ]
             opener.retrieve(img_link)
         except urllib2.HTTPError as ex:
-            logger.error("<%s>: %s", type(ex).__name__, ex, exc_info=True)
+            logger.exception("<%s>: %s", type(ex).__name__, ex)
             continue
 
         img_arr.append(img_link)
