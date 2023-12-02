@@ -51,18 +51,10 @@ class CreateGUI:
         self.root_obj.title("Batch Icon Changer")
         self.root_obj.geometry("{}x{}".format(175, 60))
 
-        label = ttk.Label(
-            self.root_obj,
-            text="Batch Icon Changer",
-            font=("Arial", 10)
-        )
+        label = ttk.Label(self.root_obj, text="Batch Icon Changer", font=("Arial", 10))
         label.pack()
 
-        button = ttk.Button(
-            self.root_obj,
-            text="Select directory",
-            command=self.get_directory
-        )
+        button = ttk.Button(self.root_obj, text="Select directory", command=self.get_directory)
         button.pack()
 
 
